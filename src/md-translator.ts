@@ -8,6 +8,8 @@ export const mdTranslator = async (translator: (text: string) => Promise<string 
         return (
           await Promise.all(
             segment.split('\n').map(async para => {
+              // Multiple Line Break
+              if (!para) return para
               // Bulleted List
               if (para.startsWith('- ')) return '- ' + (await translator(para.slice(2)))
               // Numbered List
