@@ -45,7 +45,7 @@ Markdown Translator
 
 ```ts
 // const { translated_text } = await ai.run('@cf/meta/m2m100-1.2b', { text, source_lang, target_lang })
-const translated_text = await ai.mdt('@cf/meta/m2m100-1.2b', { text, source_lang, target_lang })
+const { translated_text } = await ai.mdt('@cf/meta/m2m100-1.2b', { text, source_lang, target_lang })
 ```
 
 ## Examples
