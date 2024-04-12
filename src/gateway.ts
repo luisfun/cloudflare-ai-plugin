@@ -5,11 +5,6 @@ import type {
 } from './ai-types'
 import type { GatewayOptions } from './ai'
 
-type CacheHeaders = {
-  'cf-skip-cache'?: boolean
-  'cf-cache-ttl'?: number
-}
-
 export class Gateway {
   protected endpoint = ''
   protected token = ''
@@ -20,17 +15,16 @@ export class Gateway {
   }
 
   protected fetchRequest<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
-    const cacheHeaders: CacheHeaders = {}
-    if (options?.['cf-skip-cache']) cacheHeaders['cf-skip-cache'] = options?.['cf-skip-cache']
-    if (options?.['cf-cache-ttl']) cacheHeaders['cf-cache-ttl'] = options?.['cf-cache-ttl']
+    const cacheHeaders: HeadersInit = {}
+    if (options?.['cf-skip-cache']) cacheHeaders['cf-skip-cache'] = options['cf-skip-cache'].toString()
+    if (options?.['cf-cache-ttl']) cacheHeaders['cf-cache-ttl'] = options['cf-cache-ttl'].toString()
     return fetch(`${this.endpoint}/${model}`, {
       method: 'POST',
       headers: {
-        ...options?.headers,
         Authorization: `Bearer ${this.token}`,
         'Content-Type': 'application/json',
         ...cacheHeaders,
-      } as HeadersInit,
+      },
       body: JSON.stringify(inputs),
       signal: options?.timeout ? AbortSignal.timeout(options.timeout) : undefined,
     })
