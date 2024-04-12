@@ -1,8 +1,7 @@
 import type {
-  ModelMappings,
   ModelName,
   ConstructorParametersForModel as Inputs,
-  GetPostProcessedOutputsType,
+  GetPostProcessedOutputsType as Outputs,
 } from './ai-types'
 import type { GatewayOptions } from './ai'
 
@@ -10,14 +9,6 @@ type CacheHeaders = {
   'cf-skip-cache'?: boolean
   'cf-cache-ttl'?: number
 }
-
-type GetModelKey<M extends ModelName> = {
-  [K in keyof ModelMappings]: M extends ModelMappings[K]['models'][number] ? K : never
-}[keyof ModelMappings]
-type Outputs<M extends ModelName> =
-  GetModelKey<M> extends 'text-generation'
-    ? Exclude<GetPostProcessedOutputsType<M>, ReadableStream> & ReadableStream
-    : GetPostProcessedOutputsType<M>
 
 export class Gateway {
   protected endpoint = ''
