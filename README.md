@@ -51,3 +51,9 @@ const { translated_text } = await ai.mdt('@cf/meta/m2m100-1.2b', { text, source_
 ## Examples
 
 - [Discord Bot](https://github.com/LuisFun/discord-bot-cloudflare-ai-challenge)
+
+## References
+
+The following repositories were referenced in the making of this project:
+
+- [@cloudflare/ai](https://www.npmjs.com/package/@cloudflare/ai)
