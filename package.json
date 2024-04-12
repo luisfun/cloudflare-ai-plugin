@@ -1,0 +1,49 @@
+{
+  "name": "@luisfun/cloudflare-ai-plugin",
+  "version": "0.0.0",
+  "description": "Plugin to extend @cloudflare/ai",
+  "author": "Luis (https://github.com/LuisFun)",
+  "license": "MIT",
+  "keywords": [
+    "cloudflare-ai",
+    "workers-ai",
+    "ai-gateway"
+  ],
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.cjs",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "exports": {
+    "require": "./dist/index.cjs",
+    "import": "./dist/index.mjs",
+    "types": "./dist/index.d.ts"
+  },
+  "scripts": {
+    "fix": "prettier . --write",
+    "patch": "prettier . --write && npm version patch && git push --follow-tags",
+    "minor": "prettier . --write && npm version minor && git push --follow-tags",
+    "major": "prettier . --write && npm version major && git push --follow-tags",
+    "esbuild:cjs": "esbuild --bundle ./src/index.ts --outfile=./dist/index.cjs --format=cjs",
+    "esbuild:esm": "esbuild --bundle ./src/index.ts --outfile=./dist/index.mjs --format=esm",
+    "build": "rimraf dist && tsc && npm run esbuild:cjs && npm run esbuild:esm",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "prettier": {
+    "printWidth": 120,
+    "semi": false,
+    "singleQuote": true,
+    "arrowParens": "avoid"
+  },
+  "devDependencies": {
+    "@cloudflare/ai": "^1.1.0",
+    "esbuild": "^0.20.2",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "typescript": "^5.4.5"
+  },
+  "peerDependencies": {
+    "@cloudflare/ai": "^1.0.0"
+  }
+}
