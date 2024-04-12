@@ -1,6 +1,6 @@
 {
   "name": "@luisfun/cloudflare-ai-plugin",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Plugin to extend @cloudflare/ai",
   "author": "Luis (https://github.com/LuisFun)",
   "license": "MIT",
