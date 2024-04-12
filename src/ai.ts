@@ -20,15 +20,11 @@ export class Ai {
     else this.ai = new Gateway(arg0, arg1)
   }
 
-  /**
-   * Markdown Translator
-   * ⚠️ AI translation requests will increase.
-   */
-  mdt(model: TranslationModelName, inputs: TranslationInputs, options?: GatewayOptions) {
+  async mdt(model: TranslationModelName, inputs: TranslationInputs, options?: GatewayOptions) {
     const { source_lang, target_lang } = inputs
     const trans = async (text: string) =>
       (await this.run(model, { text, source_lang, target_lang }, options)).translated_text
-    return mdTranslator(trans, inputs.text)
+    return { translated_text: await mdTranslator(trans, inputs.text) }
   }
 
   run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
