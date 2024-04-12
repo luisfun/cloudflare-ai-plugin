@@ -13,8 +13,8 @@ type CacheHeaders = {
 export class Gateway {
   protected endpoint = ''
   protected token = ''
-  constructor(endpoint?: string, token?: string) {
-    if (!endpoint || !token) throw new Error('No endpoint or token has been set.')
+  constructor(endpoint: string | undefined, token: string | undefined) {
+    if (!endpoint || !token) throw new Error('There is no endpoint or no token')
     this.endpoint = endpoint
     this.token = token
   }
