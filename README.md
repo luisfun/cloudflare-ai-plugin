@@ -1,5 +1,8 @@
 # Cloudflare AI Plugin [![npm v](https://img.shields.io/npm/v/@luisfun/cloudflare-ai-plugin)](https://www.npmjs.com/package/@luisfun/cloudflare-ai-plugin) [![Bundle Size](https://img.shields.io/bundlephobia/min/@luisfun/cloudflare-ai-plugin)](https://bundlephobia.com/package/@luisfun/cloudflare-ai-plugin)
 
+- **AI Gateway** - You can code the AI Gateway in the same way as the workers AI.
+- **MD Translator** - You can translate while maintaining the structure of Markdown to some extent.
+
 ## Install
 
 ```shell
