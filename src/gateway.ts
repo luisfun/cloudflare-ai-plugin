@@ -6,51 +6,38 @@ import type {
 import type { GatewayOptions } from './ai'
 
 export class Gateway {
-  protected endpoint = ''
-  protected token = ''
+  #fetch
   constructor(endpoint: string | undefined, token: string | undefined) {
     if (!endpoint || !token) throw new Error('There is no endpoint or no token')
-    this.endpoint = endpoint
-    this.token = token
-  }
-
-  protected fetchRequest<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
-    const cacheHeaders: HeadersInit = {}
-    if (options?.['cf-skip-cache']) cacheHeaders['cf-skip-cache'] = options['cf-skip-cache'].toString()
-    if (options?.['cf-cache-ttl']) cacheHeaders['cf-cache-ttl'] = options['cf-cache-ttl'].toString()
-    return fetch(`${this.endpoint}/${model}`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Bearer ${this.token}`,
-        'Content-Type': 'application/json',
-        ...cacheHeaders,
-      },
-      body: JSON.stringify(inputs),
-      signal: options?.timeout ? AbortSignal.timeout(options.timeout) : undefined,
-    })
+    this.#fetch = async <M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) => {
+      const headers: HeadersInit = {}
+      if (options?.['cf-skip-cache']) headers['cf-skip-cache'] = options['cf-skip-cache'].toString()
+      if (options?.['cf-cache-ttl']) headers['cf-cache-ttl'] = options['cf-cache-ttl'].toString()
+      const response = await fetch(`${endpoint}/${model}`, {
+        method: 'POST',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+          ...headers,
+        },
+        body: JSON.stringify(inputs),
+        signal: options?.timeout ? AbortSignal.timeout(options.timeout) : undefined,
+      })
+      switch (response.headers.get('Content-Type')) {
+        case 'text/event-stream':
+          return { response, outputs: response.body as Outputs<M> }
+        case 'image/png':
+          return { response, outputs: (await response.arrayBuffer()) as Outputs<M> }
+        default:
+          return { response, outputs: (await response.json()).result as Outputs<M> }
+      }
+    }
   }
 
   async run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
-    const response = await this.fetchRequest(model, inputs, options)
-    switch (response.headers.get('Content-Type')) {
-      case 'text/event-stream':
-        return response.body as Outputs<M>
-      case 'image/png':
-        return (await response.arrayBuffer()) as Outputs<M>
-      default:
-        return (await response.json()).result as Outputs<M>
-    }
+    return (await this.#fetch(model, inputs, options)).outputs
   }
-
-  async fetch<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
-    const response = await this.fetchRequest(model, inputs, options)
-    switch (response.headers.get('Content-Type')) {
-      case 'text/event-stream':
-        return { response, outputs: response.body as Outputs<M> }
-      case 'image/png':
-        return { response, outputs: (await response.arrayBuffer()) as Outputs<M> }
-      default:
-        return { response, outputs: (await response.json()).result as Outputs<M> }
-    }
+  fetch () {
+    return this.#fetch
   }
 }
