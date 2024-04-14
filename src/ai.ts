@@ -1,4 +1,4 @@
-import type { ModelMappings, ModelName, ConstructorParametersForModel as Inputs } from './ai-types'
+import type { ModelMappings } from './ai-types'
 import type { Ai as Cfai } from '@cloudflare/ai'
 import { Gateway } from './gateway'
 import { mdTranslator } from './md-translator'
@@ -14,10 +14,10 @@ type TranslationInputs = ModelMappings['translation']['class']['prototype']['inp
 
 export class Ai {
   protected ai: Cfai | Gateway
-  constructor(arg0: Cfai | string | undefined, arg1?: string | undefined) {
-    if (arg0 === undefined) throw new Error('There is no env.AI or no endpoint')
-    if (typeof arg0 !== 'string') this.ai = arg0
-    else this.ai = new Gateway(arg0, arg1)
+  constructor(arg: Cfai | string | undefined, token?: string | undefined) {
+    if (arg === undefined) throw new Error('There is no env.AI or no endpoint')
+    if (typeof arg !== 'string') this.ai = arg
+    else this.ai = new Gateway(arg, token)
   }
 
   async mdt(model: TranslationModelName, inputs: TranslationInputs, options?: GatewayOptions) {
@@ -27,9 +27,11 @@ export class Ai {
     return { translated_text: await mdTranslator(trans, inputs.text) }
   }
 
-  run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
-    if (this.ai instanceof Gateway) return this.ai.run(model, inputs, options)
-    // @ts-expect-error
-    else return this.ai.run(model, inputs)
+  get run () {
+    return this.ai.run.bind(this.ai)
+  }
+  get fetch() {
+    if (!(this.ai instanceof Gateway)) throw new Error("This is not Gateway")
+    return this.ai.fetch.bind(this.ai)
   }
 }
