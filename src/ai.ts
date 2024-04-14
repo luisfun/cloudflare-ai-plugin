@@ -27,11 +27,11 @@ export class Ai {
     return { translated_text: await mdTranslator(trans, inputs.text) }
   }
 
-  get run () {
+  get run() {
     return this.ai.run.bind(this.ai)
   }
   get fetch() {
-    if (!(this.ai instanceof Gateway)) throw new Error("This is not Gateway")
+    if (!(this.ai instanceof Gateway)) throw new Error('This is not Gateway')
     return this.ai.fetch.bind(this.ai)
   }
 }

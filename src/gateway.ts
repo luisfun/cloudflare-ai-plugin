@@ -37,7 +37,7 @@ export class Gateway {
   async run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
     return (await this.#fetch(model, inputs, options)).outputs
   }
-  get fetch () {
+  get fetch() {
     return this.#fetch.bind(this)
   }
 }
