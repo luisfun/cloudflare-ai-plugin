@@ -1,6 +1,6 @@
 # Cloudflare AI Plugin [![npm v](https://img.shields.io/npm/v/@luisfun/cloudflare-ai-plugin)](https://www.npmjs.com/package/@luisfun/cloudflare-ai-plugin) [![Bundle Size](https://img.shields.io/bundlephobia/min/@luisfun/cloudflare-ai-plugin)](https://bundlephobia.com/package/@luisfun/cloudflare-ai-plugin)
 
-- **AI Gateway** - You can code the AI Gateway in the same way as the workers AI.
+- **REST API or AI Gateway** - You can code the same way as the binding AI.
 - **MD Translator** - You can translate while maintaining the structure of Markdown to some extent.
 
 ## Install
@@ -19,28 +19,38 @@ import { Ai } from '@luisfun/cloudflare-ai-plugin'
 const ai = new Ai(env.AI)
 ```
 
-When using AI Gateway
+When using REST API or AI Gateway
 
 ```ts
-// const ai = env.AI
-const ai = new Ai(env.Endpoint, env.Token)
+const ai = new Ai(env.AI_API_URL, env.AI_API_TOKEN)
 ```
+
+Then, `ai.run` will work as with binding AI.
 
 ## Extension
 
-Gateway Options  
-Docs: [cf-cache](https://developers.cloudflare.com/ai-gateway/configuration/caching/)
+URL Builder
+
+```ts
+import { Ai, restUrl, gatewayUrl } from '@luisfun/cloudflare-ai-plugin'
+
+const restAi = new Ai(restUrl(env.ACCOUNT_ID),  env.AI_API_TOKEN)
+const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG),  env.AI_API_TOKEN)
+```
+
+API Options  
+[Gateway: cf-cache](https://developers.cloudflare.com/ai-gateway/configuration/caching/)
 
 ```ts
 const options = {
-  'cf-skip-cache': true,
-  'cf-cache-ttl': 60,
+  'cf-skip-cache': true, // Gateway
+  'cf-cache-ttl': 60, // Gateway
   timeout: 30000, // fetch timeout (millisecond)
 }
 const response = await ai.run(model, { prompt }, options)
 ```
 
-Markdown Translator  
+MD Translator  
 ⚠️ AI translation requests will increase.
 
 ```ts
