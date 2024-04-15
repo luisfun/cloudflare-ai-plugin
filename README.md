@@ -34,8 +34,8 @@ URL Builder
 ```ts
 import { Ai, restUrl, gatewayUrl } from '@luisfun/cloudflare-ai-plugin'
 
-const restAi = new Ai(restUrl(env.ACCOUNT_ID),  env.AI_API_TOKEN)
-const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG),  env.AI_API_TOKEN)
+const restAi = new Ai(restUrl(env.ACCOUNT_ID), env.AI_API_TOKEN)
+const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG), env.AI_API_TOKEN)
 ```
 
 API Options  
