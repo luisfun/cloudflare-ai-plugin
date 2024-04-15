@@ -16,27 +16,13 @@ npm i -D @cloudflare/ai # When using TypeScript
 import { Ai } from '@luisfun/cloudflare-ai-plugin'
 
 // const ai = env.AI
-const ai = new Ai(env.AI)
-```
-
-When using REST API or AI Gateway
-
-```ts
+// const ai = new Ai(env.AI) // When extending binding AI
 const ai = new Ai(env.AI_API_URL, env.AI_API_TOKEN)
 ```
 
 Then, `ai.run` will work as with binding AI.
 
 ## Extension
-
-URL Builder
-
-```ts
-import { Ai, restUrl, gatewayUrl } from '@luisfun/cloudflare-ai-plugin'
-
-const restAi = new Ai(restUrl(env.ACCOUNT_ID), env.AI_API_TOKEN)
-const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG), env.AI_API_TOKEN)
-```
 
 API Options  
 [Gateway: cf-cache](https://developers.cloudflare.com/ai-gateway/configuration/caching/)
@@ -56,6 +42,25 @@ MD Translator
 ```ts
 // const { translated_text } = await ai.run('@cf/meta/m2m100-1.2b', inputs)
 const { translated_text } = await ai.mdt('@cf/meta/m2m100-1.2b', inputs)
+```
+
+fetch Response Object
+
+```ts
+// response is Response Object
+// outputs is the same `await ai.run()` outputs
+const { response, outputs } = await ai.fetch(model, inputs)
+```
+
+## Builder
+
+URL Builder
+
+```ts
+import { Ai, restUrl, gatewayUrl } from '@luisfun/cloudflare-ai-plugin'
+
+const restAi = new Ai(restUrl(env.ACCOUNT_ID), env.AI_API_TOKEN)
+const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG), env.AI_API_TOKEN)
 ```
 
 ## Examples
