@@ -47,15 +47,15 @@ const options = {
   'cf-cache-ttl': 60, // Gateway
   timeout: 30000, // fetch timeout (millisecond)
 }
-const response = await ai.run(model, { prompt }, options)
+const response = await ai.run(model, inputs, options)
 ```
 
 MD Translator  
 ⚠️ AI translation requests will increase.
 
 ```ts
-// const { translated_text } = await ai.run('@cf/meta/m2m100-1.2b', { text, source_lang, target_lang })
-const { translated_text } = await ai.mdt('@cf/meta/m2m100-1.2b', { text, source_lang, target_lang })
+// const { translated_text } = await ai.run('@cf/meta/m2m100-1.2b', inputs)
+const { translated_text } = await ai.mdt('@cf/meta/m2m100-1.2b', inputs)
 ```
 
 ## Examples
