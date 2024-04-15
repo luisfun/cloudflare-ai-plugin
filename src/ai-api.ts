@@ -5,15 +5,15 @@ import type {
 } from './ai-types'
 import type { GatewayOptions } from './ai'
 
-export class Gateway {
+export class AiApi {
   #fetch
-  constructor(endpoint: string | undefined, token: string | undefined) {
-    if (!endpoint || !token) throw new Error('There is no endpoint or no token')
+  constructor(url: string | undefined, token: string | undefined) {
+    if (!url || !token) throw new Error('There is no API URL or no Token')
     this.#fetch = async <M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) => {
       const headers: HeadersInit = {}
       if (options?.['cf-skip-cache']) headers['cf-skip-cache'] = options['cf-skip-cache'].toString()
       if (options?.['cf-cache-ttl']) headers['cf-cache-ttl'] = options['cf-cache-ttl'].toString()
-      const response = await fetch(`${endpoint}/${model}`, {
+      const response = await fetch(`${url}/${model}`, {
         method: 'POST',
         headers: {
           Authorization: `Bearer ${token}`,
