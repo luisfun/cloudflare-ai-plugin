@@ -3,7 +3,7 @@ import type { Ai as Cfai } from '@cloudflare/ai'
 import { AiApi } from './ai-api'
 import { mdTranslator } from './md-translator'
 
-export type GatewayOptions = {
+export type ApiOptions = {
   'cf-skip-cache'?: boolean
   'cf-cache-ttl'?: number
   timeout?: number
@@ -20,7 +20,7 @@ export class Ai {
     else this.ai = new AiApi(arg, token)
   }
 
-  async mdt(model: TranslationModelName, inputs: TranslationInputs, options?: GatewayOptions) {
+  async mdt(model: TranslationModelName, inputs: TranslationInputs, options?: ApiOptions) {
     const { source_lang, target_lang } = inputs
     const trans = async (text: string) =>
       (await this.run(model, { text, source_lang, target_lang }, options)).translated_text

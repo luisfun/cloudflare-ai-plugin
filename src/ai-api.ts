@@ -3,13 +3,13 @@ import type {
   ConstructorParametersForModel as Inputs,
   GetPostProcessedOutputsType as Outputs,
 } from './ai-types'
-import type { GatewayOptions } from './ai'
+import type { ApiOptions } from './ai'
 
 export class AiApi {
   #fetch
   constructor(url: string | undefined, token: string | undefined) {
     if (!url || !token) throw new Error('There is no API URL or no Token')
-    this.#fetch = async <M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) => {
+    this.#fetch = async <M extends ModelName>(model: M, inputs: Inputs<M>, options?: ApiOptions) => {
       const headers: HeadersInit = {}
       if (options?.['cf-skip-cache']) headers['cf-skip-cache'] = options['cf-skip-cache'].toString()
       if (options?.['cf-cache-ttl']) headers['cf-cache-ttl'] = options['cf-cache-ttl'].toString()
@@ -34,7 +34,7 @@ export class AiApi {
     }
   }
 
-  async run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: GatewayOptions) {
+  async run<M extends ModelName>(model: M, inputs: Inputs<M>, options?: ApiOptions) {
     return (await this.#fetch(model, inputs, options)).outputs
   }
   get fetch() {
