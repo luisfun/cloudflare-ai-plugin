@@ -18,9 +18,11 @@ import { Ai } from '@luisfun/cloudflare-ai-plugin'
 // const ai = env.AI
 // const ai = new Ai(env.AI) // When extending binding AI
 const ai = new Ai(env.AI_API_URL, env.AI_API_TOKEN)
+
+const response = await ai.run(model, inputs)
 ```
 
-Then, `ai.run` will work as with binding AI.
+[How to get API URL and TOKEN](https://developers.cloudflare.com/ai-gateway/providers/workersai/)
 
 ## Extension
 
