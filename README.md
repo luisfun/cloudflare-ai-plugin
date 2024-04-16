@@ -2,6 +2,7 @@
 
 - **REST API or AI Gateway** - You can code the same way as the binding AI.
 - **MD Translator** - You can translate while maintaining the structure of Markdown to some extent.
+- **TypeScript** - TypeScript support.
 
 ## Install
 
