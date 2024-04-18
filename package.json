@@ -1,7 +1,7 @@
 {
   "name": "@luisfun/cloudflare-ai-plugin",
   "version": "0.1.1",
-  "description": "Plugin to extend @cloudflare/ai",
+  "description": "This plugin enables you to code REST API or AI Gateway in the same way as the binding AI when using Cloudflare's Workers AI",
   "author": "Luis (https://github.com/LuisFun)",
   "license": "MIT",
   "keywords": [
