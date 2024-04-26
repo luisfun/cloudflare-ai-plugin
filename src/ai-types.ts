@@ -1,22 +1,22 @@
 // @cloudflare/ai https://www.npmjs.com/package/@cloudflare/ai
 
-import { modelMappings } from '@cloudflare/ai'
+import type { modelMappings } from '@cloudflare/ai'
 export type ModelMappings = typeof modelMappings
-// prettier-ignore
+// biome-ignore format: ternary operator
 type GetModelName<T> = {
     [K in keyof T]: T[K] extends {
         models: readonly (infer U)[];
     } ? U : never;
 }[keyof T];
 export type ModelName = GetModelName<ModelMappings>
-// prettier-ignore
+// biome-ignore format: ternary operator
 type GetModelClass<M extends ModelName, T> = {
     [K in keyof T]: T[K] extends {
         models: readonly string[];
         class: infer C;
     } ? M extends T[K]["models"][number] ? C : never : never;
 }[keyof T];
-// prettier-ignore
+// biome-ignore format: not break line
 export type ConstructorParametersForModel<M extends ModelName> = ConstructorParameters<GetModelClass<M, ModelMappings>>[0];
 type GetModelClassType<M extends ModelName> = {
   [K in keyof ModelMappings]: M extends ModelMappings[K]['models'][number] ? ModelMappings[K]['class'] : never

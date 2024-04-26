@@ -1,9 +1,9 @@
+import type { ApiOptions } from './ai'
 import type {
-  ModelName,
   ConstructorParametersForModel as Inputs,
+  ModelName,
   GetPostProcessedOutputsType as Outputs,
 } from './ai-types'
-import type { ApiOptions } from './ai'
 
 export class AiApi {
   #fetch

@@ -4,14 +4,8 @@
   "description": "This plugin enables you to code REST API or AI Gateway in the same way as the binding AI when using Cloudflare's Workers AI",
   "author": "Luis (https://github.com/LuisFun)",
   "license": "MIT",
-  "keywords": [
-    "cloudflare-ai",
-    "workers-ai",
-    "ai-gateway"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["cloudflare-ai", "workers-ai", "ai-gateway"],
+  "files": ["dist"],
   "main": "dist/index.cjs",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -21,25 +15,20 @@
     "types": "./dist/index.d.ts"
   },
   "scripts": {
-    "fix": "prettier . --write",
-    "patch": "prettier . --write && npm version patch && git push --follow-tags",
-    "minor": "prettier . --write && npm version minor && git push --follow-tags",
-    "major": "prettier . --write && npm version major && git push --follow-tags",
+    "fix": "npx @biomejs/biome check --apply .",
+    "fix:unsafe": "npx @biomejs/biome check --apply-unsafe .",
+    "patch": "npm run fix && npm version patch && git push --follow-tags",
+    "minor": "npm run fix && npm version minor && git push --follow-tags",
+    "major": "npm run fix && npm version major && git push --follow-tags",
     "esbuild:cjs": "esbuild --bundle ./src/index.ts --outfile=./dist/index.cjs --format=cjs",
     "esbuild:esm": "esbuild --bundle ./src/index.ts --outfile=./dist/index.mjs --format=esm",
     "build": "rimraf dist && tsc && npm run esbuild:cjs && npm run esbuild:esm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "prettier": {
-    "printWidth": 120,
-    "semi": false,
-    "singleQuote": true,
-    "arrowParens": "avoid"
-  },
   "devDependencies": {
+    "@biomejs/biome": "1.7.1",
     "@cloudflare/ai": "^1.1.0",
     "esbuild": "^0.20.2",
-    "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
   },

@@ -1,6 +1,6 @@
-import type { ModelMappings } from './ai-types'
 import type { Ai as Cfai } from '@cloudflare/ai'
 import { AiApi } from './ai-api'
+import type { ModelMappings } from './ai-types'
 import { mdTranslator } from './md-translator'
 
 export type ApiOptions = {

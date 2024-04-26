@@ -11,7 +11,7 @@ export const mdTranslator = async (translator: (text: string) => Promise<string 
               // Multiple Line Break
               if (!para) return para
               // Bulleted List
-              if (para.startsWith('- ')) return '- ' + (await translator(para.slice(2)))
+              if (para.startsWith('- ')) return `- ${await translator(para.slice(2))}`
               // Numbered List
               const numPrefix = para.match(/^(\d+\.\s)/)?.[0]
               if (numPrefix) return numPrefix + (await translator(para.slice(numPrefix.length)))
