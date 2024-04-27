@@ -22,7 +22,7 @@
     "minor": "npm run fix && npm run build && npm version minor && git push --follow-tags",
     "major": "npm run fix && npm run build && npm version major && git push --follow-tags",
     "build:dts": "tsc && dts-bundle-generator ./dist/types/index.d.ts -o ./dist/index.d.ts --no-check && rimraf ./dist/types",
-    "build:esm": "esbuild src/index.ts --outdir=dist --bundle --format=esm --platform=node",
+    "build:esm": "esbuild ./src/index.ts --outdir=./dist --bundle --platform=node --format=esm",
     "build": "rimraf ./dist && npm run build:dts && npm run build:esm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
