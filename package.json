@@ -6,28 +6,24 @@
   "license": "MIT",
   "keywords": ["cloudflare-ai", "workers-ai", "ai-gateway"],
   "files": ["dist"],
-  "main": "dist/index.cjs",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
-  "exports": {
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.mjs",
-    "types": "./dist/index.d.ts"
-  },
+  "type": "module",
+  "exports": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "fix": "npx @biomejs/biome check --apply .",
     "fix:unsafe": "npx @biomejs/biome check --apply-unsafe .",
     "patch": "npm run fix && npm version patch && git push --follow-tags",
     "minor": "npm run fix && npm version minor && git push --follow-tags",
     "major": "npm run fix && npm version major && git push --follow-tags",
-    "esbuild:cjs": "esbuild --bundle ./src/index.ts --outfile=./dist/index.cjs --format=cjs",
-    "esbuild:esm": "esbuild --bundle ./src/index.ts --outfile=./dist/index.mjs --format=esm",
-    "build": "rimraf dist && tsc && npm run esbuild:cjs && npm run esbuild:esm",
+    "build:dts": "tsc && dts-bundle-generator ./dist/types/index.d.ts -o ./dist/index.d.ts --no-check && rimraf ./dist/types",
+    "build:esm": "esbuild src/index.ts --outdir=dist --bundle --format=esm --platform=node",
+    "build": "rimraf ./dist && npm run build:dts && npm run build:esm",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.1",
     "@cloudflare/ai": "^1.1.0",
+    "dts-bundle-generator": "^9.5.1",
     "esbuild": "^0.20.2",
     "rimraf": "^5.0.5",
     "typescript": "^5.4.5"
