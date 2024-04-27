@@ -4,16 +4,11 @@
   "description": "This plugin enables you to code REST API or AI Gateway in the same way as the binding AI when using Cloudflare's Workers AI",
   "author": "Luis (https://github.com/LuisFun)",
   "license": "MIT",
-  "keywords": [
-    "cloudflare-ai",
-    "workers-ai",
-    "ai-gateway"
-  ],
-  "files": [
-    "dist"
-  ],
+  "keywords": ["cloudflare-ai", "workers-ai", "ai-gateway"],
+  "files": ["dist"],
   "type": "module",
   "exports": "./dist/index.js",
+  "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "scripts": {
     "fix": "npx @biomejs/biome check --apply .",
