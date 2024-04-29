@@ -19,8 +19,8 @@
   },
   "main": "./dist/index.cjs",
   "scripts": {
-    "fix": "biome check --apply .",
-    "fix:unsafe": "biome check --apply-unsafe .",
+    "fix": "biome check --apply . && tsc",
+    "fix:unsafe": "biome check --apply-unsafe . && tsc",
     "build": "tsup ./src/index.ts --format esm,cjs --target es2022 --dts --clean && attw -P .",
     "patch": "npm run fix && npm run build && npm version patch && git push --follow-tags",
     "minor": "npm run fix && npm run build && npm version minor && git push --follow-tags",
