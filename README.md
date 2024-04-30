@@ -68,7 +68,7 @@ const gatewayAi = new Ai(gatewayUrl(env.ACCOUNT_ID, env.GATEWAY_SLUG), env.AI_AP
 
 ## Examples
 
-- [Discord Bot](https://github.com/LuisFun/discord-bot-cloudflare-ai-challenge)
+- [Discord Bot](https://github.com/luisfun/discord-bot-cloudflare-ai-challenge)
 
 ## References
 
