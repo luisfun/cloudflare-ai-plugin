@@ -17,7 +17,7 @@ export class Ai {
   constructor(arg: Cfai | string | undefined, token?: string | undefined) {
     if (arg === undefined) throw new Error('There is no env.AI or no API URL')
     if (typeof arg !== 'string') this.ai = arg
-    else this.ai = new AiApi(arg, token)
+    else this.ai = new AiApi(arg.replace(/\/$/, ""), token)
   }
 
   async mdt(model: TranslationModelName, inputs: TranslationInputs, options?: ApiOptions) {
