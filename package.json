@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@arethetypeswrong/cli": "^0.15.3",
-    "@biomejs/biome": "1.7.1",
-    "@cloudflare/ai": "^1.1.0",
+    "@biomejs/biome": "1.7.3",
+    "@cloudflare/ai": "^1.2.2",
     "tsup": "^8.0.2",
     "typescript": "^5.4.5"
   },
