@@ -36,5 +36,10 @@
   },
   "peerDependencies": {
     "@cloudflare/ai": "^1.1.0"
+  },
+  "peerDependenciesMeta": {
+    "@cloudflare/ai": {
+      "optional": true
+    }
   }
 }
